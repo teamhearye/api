@@ -1,0 +1,19 @@
+{
+  "name": "hearyeapi",
+  "version": "1.0.0",
+  "description": "An API for the HearYe App",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "node app.js"
+  },
+  "author": "Brandon Fujii",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "dotenv": "^2.0.0",
+    "express": "^4.13.4",
+    "path": "^0.12.7",
+    "underscore": "^1.8.3"
+  }
+}

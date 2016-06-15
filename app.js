@@ -3,7 +3,6 @@
 require('dotenv').config();
 var express = require('express');
 var app = express();
-var APIRouter = express.Router();
 var _ = require('underscore');
 var bodyParser = require('body-parser');
 
@@ -12,11 +11,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
 
-// The HearYe API lives here :)
-app.use('/api', APIRouter);
+var EventRouter = express.Router();
+app.use('/api/events', EventRouter);
 
-APIRouter.get('/', function(req, res, next) {
-  res.send("Hey it's me, your brother");
+EventRouter.get('/', function(req, res, next) {
+  res.json({ message: "Events are here!" });
+});
+
+var UserRouter = express.Router();
+app.use('/api/users', UserRouter);
+
+UserRouter.get('/', function(req, res, next) {
+  res.json({ message: "Users are here!" });
+});
+
+UserRouter.post('/', function(req, res, next) {
+	// Controllers.Users.create(req, res);
 });
 
 // Start Server

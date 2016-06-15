@@ -1,5 +1,6 @@
 
-// module.exports = {
-// 	UserController: require('./user')
-// }
+module.exports = {
+	users: require('./users'),
+	events: require('./events')
+}
 

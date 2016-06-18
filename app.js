@@ -14,7 +14,7 @@ var mongoose = require('mongoose');
 mongoose.connect(process.env.DB);
 var db = mongoose.connection;
 
-var Models = require('./models/init');
+var Controllers = require('./controllers/init');
 
 app.get('/', function(req, res) {
 	res.send('Welcome to the HearYe API. Navigate to /api/events or /api/users to retrieve rad data!');
@@ -24,7 +24,7 @@ var EventRouter = express.Router();
 app.use('/api/events', EventRouter);
 
 EventRouter.get('/', function(req, res) {
-	Models.Event.getEvents(function(err, event) {
+	Controllers.Event.getEvents(function(err, event) {
 		if (err) {
 			throw err;
 		}
@@ -34,7 +34,7 @@ EventRouter.get('/', function(req, res) {
 
 EventRouter.post('/', function(req, res) {
 	var newEvent = req.body;
-	Models.Event.addEvent(newEvent, function(err, newEvent) {
+	Controllers.Event.addEvent(newEvent, function(err, newEvent) {
 		if (err) {
 			throw err;
 		}
@@ -43,7 +43,7 @@ EventRouter.post('/', function(req, res) {
 });
 
 EventRouter.get('/:_id', function(req, res) {
-	Models.Event.getEventById(req.params._id, function(err, event) {
+	Controllers.Event.getEventById(req.params._id, function(err, event) {
 		if (err) {
 			throw err;
 		}
@@ -54,7 +54,7 @@ EventRouter.get('/:_id', function(req, res) {
 EventRouter.put('/:_id', function(req, res) {
 	var id = req.params._id;
 	var event = req.body;
-	Models.Event.updateEvent(id, event, {}, function(err, event) {
+	Controllers.Event.updateEvent(id, event, {}, function(err, event) {
 		if (err) {
 			throw err;
 		}
@@ -64,7 +64,7 @@ EventRouter.put('/:_id', function(req, res) {
 
 EventRouter.delete('/:_id', function(req, res) {
 	var id = req.params._id;
-	Models.Event.deleteEvent(id, function(err, event) {
+	Controllers.Event.deleteEvent(id, function(err, event) {
 		if (err) {
 			throw err;
 		}
@@ -76,7 +76,7 @@ var UserRouter = express.Router();
 app.use('/api/users', UserRouter);
 
 UserRouter.get('/', function(req, res, next) {
-	Models.User.getUsers(function(err, user) {
+	Controllers.User.getUsers(function(err, user) {
 		if (err) {
 			throw err;
 		}
@@ -86,7 +86,7 @@ UserRouter.get('/', function(req, res, next) {
 
 UserRouter.post('/', function(req, res) {
 	var newUser = req.body;
-	Models.User.addUser(newUser, function(err, newUser) {
+	Controllers.User.addUser(newUser, function(err, newUser) {
 		if (err) {
 			throw err;
 		}
@@ -95,7 +95,7 @@ UserRouter.post('/', function(req, res) {
 });
 
 UserRouter.get('/:_id', function(req, res) {
-	Models.User.getUserById(req.params._id, function(err, user) {
+	Controllers.User.getUserById(req.params._id, function(err, user) {
 		if (err) {
 			throw err;
 		}
@@ -106,7 +106,7 @@ UserRouter.get('/:_id', function(req, res) {
 UserRouter.put('/:_id', function(req, res) {
 	var id = req.params._id;
 	var user = req.body;
-	Models.User.updateUser(id, user, {}, function(err, user) {
+	Controllers.User.updateUser(id, user, {}, function(err, user) {
 		if (err) {
 			throw err;
 		}
@@ -116,7 +116,7 @@ UserRouter.put('/:_id', function(req, res) {
 
 UserRouter.delete('/:_id', function(req, res) {
 	var id = req.params._id;
-	Models.User.deleteUser(id, function(err, user) {
+	Controllers.User.deleteUser(id, function(err, user) {
 		if (err) {
 			throw err;
 		}

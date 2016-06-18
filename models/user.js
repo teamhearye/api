@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 
-// TODO: Add tags and organization attributes
 var userSchema = mongoose.Schema({
 	name: {
 		type: String,
@@ -37,13 +36,13 @@ module.exports.addUser = function(user, cb) {
 	User.create(user, cb);
 }
 
-// DELETE event by ID
+// DELETE user by ID
 module.exports.deleteUser = function(id, cb) {
 	var query = { _id: id };
 	User.remove(query, cb);
 }
 
-// UPDATE event by ID
+// UPDATE user by ID
 module.exports.updateUser = function(id, user, options, cb) {
 	var query = { _id: id };
 	var updated_user = {

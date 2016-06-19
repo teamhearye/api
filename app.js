@@ -3,18 +3,32 @@
 require('dotenv').config();
 var express = require('express');
 var app = express();
+var logger = require('morgan');
 var bodyParser = require('body-parser');
 
+app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
-var mongoose = require('mongoose');
-
 // Connect to database with mongoose
+var mongoose = require('mongoose');
 mongoose.connect(process.env.DB);
 var db = mongoose.connection;
 
 var Controllers = require('./controllers/init');
+
+// Enable Cross Origin Resource Sharing (CORS)
+app.all('/*', function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*"); 
+  	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+
+  	res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
+  	if (req.method == 'OPTIONS') {
+    	res.status(200).end();
+	} else {
+	  	next();
+	}
+});
 
 app.get('/', function(req, res) {
 	res.send('Welcome to the HearYe API. Navigate to /api/events or /api/users to retrieve rad data!');
